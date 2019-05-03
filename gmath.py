@@ -24,9 +24,10 @@ SPECULAR_EXP = 4
 def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
     colors=limit_color(calculate_ambient(ambient,areflect))
     dcolors=calculate_diffuse(light,dreflect,normal)
+    scolors=calculate_specular(light, sreflect, view, normal)
     for i in range(3):
         colors[i]+=dcolors[i]
-        colors=colors[i]
+        colors[i]=int(colors[i])
     return colors
 
 def calculate_ambient(alight, areflect):
@@ -34,6 +35,8 @@ def calculate_ambient(alight, areflect):
 
 def calculate_diffuse(light, dreflect, normal):
     color=[]
+    normalize(normal)
+    normalize(light[0])
     dp=dot_product(normal,light[0])
     color.append(light[1][0]*dreflect[0]*dp)
     color.append(light[1][1]*dreflect[1]*dp)
@@ -42,7 +45,18 @@ def calculate_diffuse(light, dreflect, normal):
     #light[0] * dreflect * (Dot product of normal and light[1]
 
 def calculate_specular(light, sreflect, view, normal):
-
+    color=[]
+    normalize(normal)
+    normalize(light[0])
+    normalize(view)
+    dp=dot_product(normal,light[0])
+    r=[]
+    for i in range(3):
+        r.append(2*normal[i]*dp)
+    color.append(light[1][0]*dreflect[0]*dp)
+    color.append(light[1][1]*dreflect[1]*dp)
+    color.append(light[1][2]*dreflect[2]*dp)
+    return(limit_color(color))
     pass
 
 def limit_color(color):
@@ -53,7 +67,6 @@ def limit_color(color):
             color[i]=0
         if color[i]>255:
             color[i]=255
-        color=int(color[i])
     return color
 
 #vector functions
