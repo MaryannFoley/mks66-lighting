@@ -1,0 +1,49 @@
+#test box mesh
+push
+
+
+move
+100 400 0
+rotate
+y 10
+rotate
+x 10
+rotate
+z 30
+torus
+0 0 0 70 28
+
+push
+move
+200 -105 0
+rotate
+y 166
+rotate
+x 10
+rotate
+z 30
+torus
+0 0 0 60 24
+
+push
+rotate
+y 11
+rotate
+z 30
+push
+move
+25 -305 0
+torus
+0 0 0 80 32
+
+push
+rotate
+y 11
+rotate
+z 300
+torus
+300 440 40 50 20
+
+display
+save
+robot.png
