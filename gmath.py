@@ -27,6 +27,7 @@ def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
     scolors=calculate_specular(light, sreflect, view, normal)
     for i in range(3):
         colors[i]+=dcolors[i]
+        colors[i]+=scolors[i]
         colors[i]=int(colors[i])
     return colors
 
@@ -53,9 +54,9 @@ def calculate_specular(light, sreflect, view, normal):
     r=[]
     for i in range(3):
         r.append(2*normal[i]*dp)
-    color.append(light[1][0]*dreflect[0]*dp)
-    color.append(light[1][1]*dreflect[1]*dp)
-    color.append(light[1][2]*dreflect[2]*dp)
+    color.append(light[1][0]*sreflect[0]*dp)
+    color.append(light[1][1]*sreflect[1]*dp)
+    color.append(light[1][2]*sreflect[2]*dp)
     return(limit_color(color))
     pass
 
